@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --header-color: #7371fc;
+    --background-color: #ebedf9;
+    --button-color: #6e2594;
+    --positive-color: #44bba4;
+    --negative-color: #ef5b5b;
+    --dark-font-color: #444444;
+    --light-font-color: #fdfafa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
