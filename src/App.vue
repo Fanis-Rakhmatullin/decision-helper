@@ -1,23 +1,25 @@
 <template>
   <div id="app">
-<!--    <div class="container">-->
-      <header-component />
-<!--    </div>-->
+    <header-component/>
+    <question-component/>
+    <option-adder/>
   </div>
 </template>
 
 <script>
 import HeaderComponent from './components/HeaderComponent.vue';
+import QuestionComponent from './components/QuestionComponent.vue';
+import OptionAdder from './components/OptionAdder.vue';
 
 export default {
   name: 'App',
   components: {
     HeaderComponent,
+    QuestionComponent,
+    OptionAdder,
   },
   data() {
-    return {
-
-    };
+    return {};
   },
 };
 </script>
@@ -37,9 +39,13 @@ export default {
   background: var(--header-color);
 }
 
-.container {
-  margin: 0 auto;
-  width: 95%;
-  max-width: 966px;
+.question-component {
+  padding-top: 200px;
+  font-size: 24px;
+}
+
+.option-adder {
+  padding-top: 200px;
+  font-size: 24px;
 }
 </style>

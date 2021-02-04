@@ -6,8 +6,13 @@
         <h3 class="headline__moto">weigh all pros and cons</h3>
       </div>
       <div class="github">
-        <a href="/" class="github__link">
-          <img class="github__img" src="../assets/svg/github-logo.svg" alt="Лого GitHub">
+        <a href="https://github.com/Fanis-Rakhmatullin/decision-helper"
+           class="github__link"
+        >
+          <img class="github__img"
+               src="../assets/svg/github-logo.svg"
+               alt="Лого GitHub"
+          >
         </a>
       </div>
     </div>
@@ -16,7 +21,7 @@
 
 <script>
 export default {
-  name: 'headerComponent',
+  name: 'HeaderComponent',
 };
 </script>
 
