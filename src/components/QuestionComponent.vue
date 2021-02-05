@@ -4,16 +4,18 @@
       <form class="question">
         <label class="question__prompt">Enter your question:
           <input
-            type="text"
+            v-model="newQuestion"
+            autofocus
             class="question__input input--type--text"
             placeholder="Should I move to St. Petersburg?"
-            v-model="question"
+            type="text"
           >
         </label>
         <button-component
-          class="question__button"
-          buttonText="Next"
           buttonColor="var(--button-main-color)"
+          buttonText="Next"
+          class="question__button"
+          @clickOnBtn="setNewQuestion"
         />
       </form>
 
@@ -22,6 +24,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import ButtonComponent from './ButtonComponent.vue';
 
 export default {
@@ -31,13 +34,28 @@ export default {
   },
   data() {
     return {
-      question: '',
+      newQuestion: '',
     };
+  },
+  methods: {
+    ...mapMutations(['SET_QUESTION']),
+    setNewQuestion() {
+      this.SET_QUESTION(this.newQuestion);
+
+      this.scrollTo(document.querySelector('.option-adder').offsetTop);
+    },
+    scrollTo(offset) {
+      const ADDITIONAL_OFFSET = 50;
+      window.scrollTo({
+        top: offset - ADDITIONAL_OFFSET,
+        behavior: 'smooth',
+      });
+    },
   },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .question__prompt {
   display: flex;
   justify-content: space-between;

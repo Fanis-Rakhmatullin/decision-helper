@@ -3,6 +3,7 @@
     <button
       :style="{ backgroundColor: buttonColor }"
       class="button"
+      @click.prevent="$emit('clickOnBtn')"
     >{{ buttonText }}
     </button>
   </div>
