@@ -3,32 +3,36 @@
     <div class="container">
       <form class="option">
         <label class="option__name">
-          <span class="option__name-text">Add pros or cons:</span>
+          <span class="option__name-text">{{textContent.optionName}}</span>
           <input
             v-model="option.name"
             class="option__name-input input--type--text"
-            placeholder="I have a lot of friends there"
+            :placeholder="textContent.optionNamePlaceholder"
             type="text"
+            ref="optionName"
           >
         </label>
         <div class="option__rest-traits">
-          <label class="option__value">Point value:
+          <label class="option__value">{{textContent.optionValue}}
             <input
               v-model="option.value"
               class="option__value-input input--type--text"
               placeholder="10"
               type="number"
+              max="1000"
             >
           </label>
-          <label class="option__probability">Probability: {{ option.probability }} %
+          <label class="option__probability">{{textContent.optionProbability}}
+            {{ option.probability }} %
             <input
               v-model="option.probability"
               class="option__probability-input"
               max="100"
-              min="0"
+              min="1"
               step="1"
               type="range"
               value="100"
+              required
             >
           </label>
         </div>
@@ -36,13 +40,13 @@
       <div class="buttons">
         <button-component
           buttonColor="var(--button-positive-color)"
-          buttonText="Add as pro"
+          :buttonText="textContent.optionButtonPro"
           class="buttons__pro"
           @clickOnBtn="addNewPro"
         />
         <button-component
           buttonColor="var(--button-negative-color)"
-          buttonText="Add as con"
+          :buttonText="textContent.optionButtonCon"
           class="buttons__con"
           @clickOnBtn="addNewCon"
         />
@@ -52,7 +56,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import ButtonComponent from './ButtonComponent.vue';
 
 let uniqueId = 0;
@@ -72,17 +76,33 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState({
+      textContent: (state) => state.textContent.optionAdder,
+    }),
+  },
   methods: {
     ...mapMutations(['ADD_PRO', 'ADD_CON']),
     addNewPro() {
-      uniqueId += 1;
-      this.option.id = uniqueId;
+      this.generateNextId();
       this.ADD_PRO({ ...this.option });
+      this.resetInput();
+      this.$refs.optionName.focus();
     },
     addNewCon() {
+      this.generateNextId();
+      this.ADD_CON({ ...this.option });
+      this.resetInput();
+      this.$refs.optionName.focus();
+    },
+    generateNextId() {
       uniqueId += 1;
       this.option.id = uniqueId;
-      this.ADD_CON({ ...this.option });
+    },
+    resetInput() {
+      this.option.name = '';
+      this.option.value = 10;
+      this.option.probability = 100;
     },
   },
 };
@@ -137,6 +157,7 @@ export default {
 .option__probability {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
 }
 
 .option__value-input {

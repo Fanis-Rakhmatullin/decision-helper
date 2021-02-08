@@ -1,31 +1,55 @@
 <template>
-  <div class="header-component">
+  <header class="header-component">
     <div class="container">
       <div class="headline">
         <h1 class="headline__title">Decision helper</h1>
-        <h3 class="headline__moto">weigh all pros and cons</h3>
+        <h3 class="headline__moto">{{ textContent.moto }}</h3>
       </div>
-      <div class="github">
-        <a href="https://github.com/Fanis-Rakhmatullin/decision-helper"
-           class="github__link"
-        >
-          <img class="github__img"
-               src="../assets/svg/github-logo.svg"
-               alt="Лого GitHub"
+      <nav class="interactive-elements">
+        <div class="github">
+          <a class="github__link"
+             href="https://github.com/Fanis-Rakhmatullin/decision-helper"
           >
-        </a>
-      </div>
+            <img alt="Лого GitHub"
+                 class="github__img"
+                 src="../assets/svg/github-logo.svg"
+            >
+          </a>
+        </div>
+        <switch-component
+          @buttonSwitched="changeLang($event)"
+        />
+      </nav>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
+
+import { mapState, mapActions } from 'vuex';
+import SwitchComponent from './SwitchComponent.vue';
+
 export default {
   name: 'HeaderComponent',
+  components: { SwitchComponent },
+  computed: {
+    ...mapState({
+      textContent: (state) => state.textContent.header,
+    }),
+  },
+  methods: {
+    ...mapActions({
+      getTextContent: 'getTextContent',
+    }),
+    changeLang(isChecked) {
+      if (isChecked) this.getTextContent('russian');
+      else this.getTextContent('english');
+    },
+  },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .header-component {
   width: 100%;
 }
@@ -50,7 +74,17 @@ export default {
   font-size: 24px;
 }
 
+.interactive-elements {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .github {
   margin-top: 10px;
+}
+
+.switch-component {
+  width: 100px;
 }
 </style>

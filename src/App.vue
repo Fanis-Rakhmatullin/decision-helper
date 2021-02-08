@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import HeaderComponent from './components/HeaderComponent.vue';
 import QuestionComponent from './components/QuestionComponent.vue';
 import OptionAdder from './components/OptionAdder.vue';
@@ -21,8 +22,13 @@ export default {
     OptionAdder,
     SpreadsheetComponent,
   },
-  data() {
-    return {};
+  methods: {
+    ...mapActions({
+      getTextContent: 'getTextContent',
+    }),
+  },
+  created() {
+    this.getTextContent('english');
   },
 };
 </script>

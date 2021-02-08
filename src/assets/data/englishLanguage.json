@@ -1,0 +1,21 @@
+{
+  "header": {
+    "moto": "weigh all pros and cons"
+  },
+  "question": {
+    "questionPrompt": "Enter your question:",
+    "questionPromptPlaceholder": "Should I move to St. Petersburg?",
+    "questionButtonNext": "Next"
+  },
+  "optionAdder": {
+    "optionName": "Add pros or cons:",
+    "optionNamePlaceholder": "I have a lot of friends there",
+    "optionValue": "Point value:",
+    "optionProbability": "Probability:",
+    "optionButtonPro": "Add as pro",
+    "optionButtonCon": "Add as con"
+  },
+  "spreadsheet": {
+    "score": "Score:"
+  }
+}

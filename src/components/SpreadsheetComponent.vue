@@ -6,34 +6,36 @@
         <div class="pros reasons">
           <ul class="reasons__list">
             <li
-              class="reasons__item"
               v-for="pro in pros"
               :key="pro.id"
+              class="reasons__item"
             >
-              <div class="reasons__name">{{ pro.name }}</div>
-              <div class="reasons__value">{{ pro.value }}</div>
-              <div class="reasons__probability">{{ pro.probability }}</div>
+              <reason-component
+                :isPro="true"
+                :reason="pro"
+              />
             </li>
           </ul>
         </div>
         <div class="cons reasons">
           <ul class="reasons__list">
             <li
-              class="reasons__item"
               v-for="con in cons"
               :key="con.id"
+              class="reasons__item"
             >
-              <div class="reasons__name">{{ con.name }}</div>
-              <div class="reasons__value reasons__value--cons">{{ con.value }}</div>
-              <div class="reasons__probability">{{ con.probability }}</div>
+              <reason-component
+                :isPro="false"
+                :reason="con"
+              />
             </li>
           </ul>
         </div>
       </div>
       <div class="score">
-        <div class="score__title">Score:</div>
-        <div class="score__pros">17.5</div>
-        <div class="score__cons">8</div>
+        <div class="score__title">{{textContent.score}}</div>
+        <div class="score__pros">{{  scorePros }}</div>
+        <div class="score__cons">{{  scoreCons }}</div>
       </div>
     </div>
   </div>
@@ -42,22 +44,39 @@
 <script>
 
 import { mapState } from 'vuex';
+import ReasonComponent from './ReasonComponent.vue';
 
 export default {
   name: 'SpreadsheetComponent',
-  components: {},
+  components: { ReasonComponent },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapState({
       question: (state) => state.question,
       pros: (state) => state.pros,
       cons: (state) => state.cons,
+      textContent: (state) => state.textContent.spreadsheet,
     }),
+    scorePros() {
+      if (this.pros.length === 0) return 0;
+      return this.calculateScore(this.pros);
+    },
+    scoreCons() {
+      if (this.pros.length === 0) return 0;
+      return this.calculateScore(this.cons);
+    },
+  },
+  methods: {
+    calculateScore(arrayOfOptions) {
+      return Math
+        .round(arrayOfOptions
+          .reduce((sum, option) => sum + option.value * option.probability * 0.01, 0));
+    },
   },
 };
+
 </script>
 
 <style lang="scss" scoped>
@@ -90,24 +109,8 @@ export default {
   padding-left: 1%;
 }
 
-.reasons__item {
-  display: flex;
-  justify-content: space-between;
-}
-
-.reasons__name {
-  max-width: 70%;
-}
-
-.reasons__value {
-  color: var(--button-positive-color);
-
-  &--cons {
-    color: var(--button-negative-color);
-  }
-}
-
 .score {
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding-left: 30px;
@@ -115,15 +118,19 @@ export default {
   font-size: 24px;
 }
 
+.score__title {
+  position: absolute;
+}
+
 .score__pros {
   color: var(--button-positive-color);
   text-align: right;
-  flex-basis: 35%;
+  flex-basis: 45%;
 }
 
 .score__cons {
   color: var(--button-negative-color);
   text-align: right;
-  flex-basis: 50%;
+  flex-basis: 45%;
 }
 </style>

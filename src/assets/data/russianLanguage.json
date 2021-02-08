@@ -1,0 +1,21 @@
+{
+  "header": {
+    "moto": "взвесьте все плюсы и минусы"
+  },
+  "question": {
+    "questionPrompt": "Введите свой вопрос:",
+    "questionPromptPlaceholder": "Переехать ли в Санкт-Петербург?",
+    "questionButtonNext": "Продолжить"
+  },
+  "optionAdder": {
+    "optionName": "Добавить плюсы или минусы",
+    "optionNamePlaceholder": "У меня там много друзей",
+    "optionValue": "Важность:",
+    "optionProbability": "Вероятность:",
+    "optionButtonPro": "Добавить «+»",
+    "optionButtonCon": "Добавить «-»"
+  },
+  "spreadsheet": {
+    "score": "Результат:"
+  }
+}

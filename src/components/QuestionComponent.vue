@@ -2,18 +2,18 @@
   <div class="question-component">
     <div class="container">
       <form class="question">
-        <label class="question__prompt">Enter your question:
+        <label class="question__prompt">{{ textContent.questionPrompt }}
           <input
             v-model="newQuestion"
             autofocus
             class="question__input input--type--text"
-            placeholder="Should I move to St. Petersburg?"
+            :placeholder="textContent.questionPromptPlaceholder"
             type="text"
           >
         </label>
         <button-component
           buttonColor="var(--button-main-color)"
-          buttonText="Next"
+          :buttonText="textContent.questionButtonNext"
           class="question__button"
           @clickOnBtn="setNewQuestion"
         />
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import ButtonComponent from './ButtonComponent.vue';
 
 export default {
@@ -36,6 +36,11 @@ export default {
     return {
       newQuestion: '',
     };
+  },
+  computed: {
+    ...mapState({
+      textContent: (state) => state.textContent.question,
+    }),
   },
   methods: {
     ...mapMutations(['SET_QUESTION']),

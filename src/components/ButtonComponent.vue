@@ -29,6 +29,9 @@ export default {
   font-weight: bold;
   color: white;
   width: 100%;
+  min-width: fit-content;
+  padding-right: 10px;
+  padding-left: 10px;
 
   &:focus {
     outline: none;
