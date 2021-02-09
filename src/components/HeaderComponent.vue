@@ -6,16 +6,6 @@
         <h3 class="headline__moto">{{ textContent.moto }}</h3>
       </div>
       <nav class="interactive-elements">
-        <div class="github">
-          <a class="github__link"
-             href="https://github.com/Fanis-Rakhmatullin/decision-helper"
-          >
-            <img alt="Лого GitHub"
-                 class="github__img"
-                 src="../assets/svg/github-logo.svg"
-            >
-          </a>
-        </div>
         <switch-component
           @buttonSwitched="changeLang($event)"
         />
@@ -78,6 +68,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  align-self: flex-end;
 }
 
 .github {

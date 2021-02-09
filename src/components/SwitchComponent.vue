@@ -22,13 +22,6 @@
 <script>
 export default {
   name: 'SwitchComponent',
-  props: {
-    buttonColor: String,
-    buttonText: String,
-  },
-  data() {
-    return {};
-  },
 };
 </script>
 

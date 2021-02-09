@@ -16,6 +16,15 @@
     "optionButtonCon": "Add as con"
   },
   "spreadsheet": {
-    "score": "Score:"
+    "score": "Score:",
+    "buttonShow": "Show charts",
+    "buttonHide": "Hide charts",
+    "pros": "Pros",
+    "cons": "Cons",
+    "chartName1": "Pros and cons ratio",
+    "chartName2": "Reasons ratio"
+  },
+  "footer": {
+    "name": "Fanis Rakhmatullin"
   }
 }
