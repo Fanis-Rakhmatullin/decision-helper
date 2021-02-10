@@ -49,19 +49,27 @@ export default {
   justify-content: space-between;
   padding-top: 30px;
   padding-bottom: 30px;
+
+  @include phones {
+    flex-direction: column;
+  }
 }
 
 .headline {
   text-align: left;
+
+  @include phones {
+    margin-bottom: 10px;
+  }
 }
 
 .headline__title {
-  font-size: 60px;
+  font-size: var(--font-size-headline);
   font-weight: bold;
 }
 
 .headline__moto {
-  font-size: 24px;
+  font-size: var(--font-size-main);
 }
 
 .interactive-elements {
@@ -73,9 +81,5 @@ export default {
 
 .github {
   margin-top: 10px;
-}
-
-.switch-component {
-  width: 100px;
 }
 </style>

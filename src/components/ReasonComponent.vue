@@ -3,18 +3,27 @@
     :class="{'reason-component--type--cons': !isPro}"
     class="reason-component reason"
   >
-    <button-delete-component
-      class="reason__delete"
-      :data-id="reason.id"
-      @clickOnDeleteBtn="deleteExistingReason(reason.id)"
-    />
-    <div class="reason__name">{{ reason.name }}</div>
-    <div class="reason__value">{{ reason.value }}
-      <span
-        class="reason__probability"
-        v-if="reason.probability < 100"
-      >({{ reason.probability }} %)</span>
-    </div>
+    <table class="reason__table">
+      <tr class="reason__row">
+        <td class="reason__cell reason__delete-cell">
+          <button-delete-component
+            class="reason__delete"
+            @clickOnDeleteBtn="deleteExistingReason(reason.id)"
+          />
+        </td>
+        <td class="reason__cell reason__name-cell">
+          <div class="reason__name">{{ reason.name }}</div>
+        </td>
+        <td class="reason__cell reason__value-cell">
+          <div class="reason__value">{{ reason.value }}
+            <span
+              v-if="reason.probability < 100"
+              class="reason__probability"
+            >({{ reason.probability }} %)</span>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -42,27 +51,35 @@ export default {
   methods: {
     ...mapMutations(['DELETE_PRO', 'DELETE_CON']),
     deleteExistingReason(reasonId) {
-      if (this.isPro) this.DELETE_PRO(reasonId);
-      else this.DELETE_CON(reasonId);
+      if (this.isPro) {
+        this.DELETE_PRO(reasonId);
+      } else {
+        this.DELETE_CON(reasonId);
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.reason-component {
-  display: flex;
+.reason__table {
+  width: 100%;
+}
+
+.reason__delete-cell {
+  width: 20px;
+}
+
+.reason__name-cell {
+  width: 80%;
+}
+
+.reason__value-cell {
+  text-align: left;
 }
 
 .reason__delete {
-  margin-right: 3%;
-  min-width: 10px;
-  max-width: unset;
-}
-
-.reason__name {
-  width: 70%;
-  margin-right: 3%;
+  width: 20px;
 }
 
 .reason__value {
@@ -78,6 +95,6 @@ export default {
 
 .reason__probability {
   color: var(--dark-font-color);
-  font-size: 12px;
+  font-size: var(--font-size-extra-small);
 }
 </style>

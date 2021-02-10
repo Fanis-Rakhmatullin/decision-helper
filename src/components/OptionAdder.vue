@@ -19,6 +19,7 @@
               class="option__value-input input--type--text"
               placeholder="10"
               type="number"
+              inputmode="numeric"
               max="1000"
             >
           </label>
@@ -112,12 +113,10 @@ export default {
 .container {
   display: flex;
   align-items: center;
-}
 
-.buttons {
-  display: flex;
-  flex-basis: 40%;
-  justify-content: space-between;
+  @include phones {
+    flex-direction: column
+  }
 }
 
 .option {
@@ -125,6 +124,43 @@ export default {
   flex-direction: column;
   flex-basis: 60%;
   padding-right: 5%;
+
+  @include phones {
+    margin-bottom:  10px;
+    align-items: center;
+    padding-right: 0;
+    width: 100%;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-basis: 40%;
+  justify-content: space-between;
+
+  @include tablets {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include phones {
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
+.button-component {
+  @include tablets {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @include phones {
+    margin-bottom: 0;
+  }
 }
 
 .option__name {
@@ -141,11 +177,16 @@ export default {
 
 .option__rest-traits {
   display: flex;
+
+  @include phones {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 .option__value,
 .option__probability {
-  font-size: 18px;
+  font-size: var(--font-size-small);
   width: 40%;
   margin-right: 10px;
 
@@ -161,7 +202,7 @@ export default {
 }
 
 .option__value-input {
-  font-size: 18px;
+  font-size: var(--font-size-small);
   width: 80px;
   height: 30px;
   text-align: center;

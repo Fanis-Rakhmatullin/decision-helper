@@ -33,12 +33,22 @@
         </div>
       </div>
       <div class="score">
-        <div class="score__title">{{ textContent.score }}</div>
-        <div class="score__pros">{{ scorePros }}</div>
-        <div class="score__cons">{{ scoreCons }}</div>
+        <table class="score__table">
+          <tr>
+            <td class="score__title-cell">
+              <div class="score__title">{{ textContent.score }}</div>
+            </td>
+            <td class="score__pros-cell">
+              <div class="score__pros">{{ scorePros }}</div>
+            </td>
+            <td class="score__cons-cell">
+              <div class="score__cons">{{ scoreCons }}</div>
+            </td>
+          </tr>
+        </table>
       </div>
       <button-component
-        v-if="pros.length > 0 || cons.length > 0"
+        v-if="pros.length > 0 || cons.length > 0 || isChartsShown"
         :buttonText="isChartsShown ? this.textContent.buttonHide : this.textContent.buttonShow"
         buttonColor="var(--button-main-color)"
         class="show-chart-btn"
@@ -46,15 +56,15 @@
       />
       <ul
         v-if="isChartsShown"
-        class="charts"
         ref="charts"
+        class="charts"
       >
         <li class="charts__pros-cons">
           <h2 class="charts__title">{{ this.textContent.chartName1 }}</h2>
           <chart-component
             :chartLabels="chartLabelsProsCons"
-            :chartValues="chartValuesProsCons"
             :chartTitle="question"
+            :chartValues="chartValuesProsCons"
             :colorScheme="['#44bba4', '#ef5b5b']"
           />
         </li>
@@ -62,8 +72,8 @@
           <h2 class="charts__title">{{ this.textContent.chartName2 }}</h2>
           <chart-component
             :chartLabels="chartLabelsAllReasons"
-            :chartValues="chartValuesAllReasons"
             :chartTitle="question"
+            :chartValues="chartValuesAllReasons"
             :colorScheme="shuffledDefaultColorScheme"
           />
         </li>
@@ -153,7 +163,7 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-  font-size: 30px;
+  font-size: var(--font-size-headline-small);
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
@@ -166,10 +176,26 @@ export default {
   padding: 30px;
   display: flex;
   margin-bottom: 50px;
+
+  @include tablets {
+    padding: 20px;
+  }
+
+  @include phones {
+    padding: 10px;
+  }
 }
 
 .reasons {
   flex-basis: 48%;
+}
+
+.reasons__item {
+  transition: background-color .8s;
+
+  &:hover {
+    background-color: var(--background-color);
+  }
 }
 
 .pros {
@@ -182,29 +208,40 @@ export default {
 }
 
 .score {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
   padding-left: 30px;
   padding-right: 30px;
-  font-size: 24px;
+  font-size: var(--font-size-main);
   margin-bottom: 50px;
 }
 
-.score__title {
-  position: absolute;
+.score__table {
+  width: 100%;
+}
+
+.score__title-cell {
+  width: 15%;
+}
+
+.score__pros-cell {
+  width: 30%;
+}
+
+.score__pros,
+.score__cons {
+  text-align: right;
+  font-weight: bold;
 }
 
 .score__pros {
   color: var(--button-positive-color);
-  text-align: right;
-  flex-basis: 45%;
+}
+
+.score__cons-cell {
+  width: 50%;
 }
 
 .score__cons {
   color: var(--button-negative-color);
-  text-align: right;
-  flex-basis: 45%;
 }
 
 .show-chart-btn {
@@ -214,18 +251,35 @@ export default {
 }
 
 .charts__title {
-  font-size: 24px;
+  font-size: var(--font-size-main);
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
+
+  @include tablets {
+    margin-bottom: 0;
+  }
 }
 
 .chart-component {
-  width: 60vw;
-  height: 40vh;
+  width: 100%;
+  height: 45vh;
+  min-height: 200px;
+
+  @include tablets {
+    height: 40vh;
+  }
+
+  @include phones {
+    height: 30vh;
+  }
 }
 
 .charts__pros-cons, .charts__reasons {
   margin-bottom: 50px;
+
+  @include phones {
+    margin-bottom: 20px;
+  }
 }
 </style>

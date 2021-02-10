@@ -50,7 +50,7 @@ export default {
         maintainAspectRatio: false,
         responsive: true,
         legend: {
-          position: 'right',
+          position: 'bottom',
         },
         title: {
           display: true,

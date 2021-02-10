@@ -25,9 +25,16 @@ export default {
 <style lang="scss" scoped>
 .button {
   background: transparent;
+  padding: 0;
+  transition: transform 0.4s;
+
+  &:hover {
+    transform: rotateZ(20deg);
+  }
 
   &:focus {
     outline: none;
+    transform: rotateZ(30deg);
   }
 }
 

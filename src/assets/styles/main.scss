@@ -1,4 +1,5 @@
 @import "base";
+@import "mixins";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 :root {
@@ -9,23 +10,52 @@
   --button-negative-color: #ef5b5b;
   --dark-font-color: #444444;
   --light-font-color: #fdfafa;
+  --font-size-headline: 60px;
+  --font-size-headline-small: 30px;
+  --font-size-main: 24px;
+  --font-size-small: 18px;
+  --font-size-extra-small: 12px;
+
+  @include tablets {
+    --font-size-headline: 40px;
+    --font-size-headline-small: 28px;
+    --font-size-main: 20px;
+    --font-size-small: 14px;
+    --font-size-extra-small: 12px;
+  }
+
+  @include phones {
+    --font-size-headline: 30px;
+    --font-size-headline-small: 24px;
+    --font-size-main: 18px;
+    --font-size-small: 12px;
+    --font-size-extra-small: 10px;
+  }
 }
 
 .container {
   margin: 0 auto;
   width: 95%;
   max-width: 966px;
+
+  @include tablets {
+    max-width: 90%;
+  }
 }
 
 .input--type--text {
-  height: 40px;
-  font-size: 24px;
+  height: 38px;
+  font-size: var(--font-size-main);
   font-weight: 300;
   color: var(--dark-font-color);
   outline: none;
   border-radius: 10px;
-  border-width: 0;
   padding-left: 10px;
+  border: 2px solid transparent;
+
+  &:focus {
+    border-color: var(--button-main-color);
+  }
 }
 
 

@@ -75,4 +75,30 @@ export default {
     margin-right: 0;
   }
 }
+
+.contacts__img {
+  transition: transform 0.5s;
+}
+
+.contacts__link {
+  &:hover {
+    .contacts__img {
+      transform: scale(1.2);
+    }
+  }
+
+  &:focus {
+    outline: none;
+
+    .contacts__img {
+      transform: scale(1.2);
+    }
+  }
+
+  &:active {
+    .contacts__img {
+      transform: scale(1.2);
+    }
+  }
+}
 </style>

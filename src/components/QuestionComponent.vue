@@ -25,9 +25,14 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
 import ButtonComponent from './ButtonComponent.vue';
 
 export default {
+  mixins: [ValidatorMixin],
+  validators: {
+    newQuestion: (value) => Validator.value(value).required('lol'),
+  },
   name: 'QuestionComponent',
   components: {
     ButtonComponent,
@@ -66,14 +71,32 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+
+  @include phones {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .question__input {
   width: 70%;
+
+  @include tablets {
+    width: 90%;
+  }
+
+  @include phones {
+    margin-top: 10px;
+    width: 100%;
+  }
 }
 
 .question__button {
   width: 35%;
   margin-left: auto;
+
+  @include phones {
+    width: 50%;
+  }
 }
 </style>

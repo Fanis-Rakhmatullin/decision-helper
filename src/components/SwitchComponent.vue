@@ -1,7 +1,7 @@
 <template>
   <div class="switch-component">
     <div class="wrapper">
-      <!--      <span class="switch__option switch__option&#45;&#45;left">English</span>-->
+      <span class="switch__option switch__option--left">English</span>
       <div class="switch__toggle">
         <input
           id="checkbox"
@@ -14,7 +14,7 @@
           for="checkbox"
         ></label>
       </div>
-      <!--      <span class="switch__option switch__option&#45;&#45;right">Русский</span>-->
+      <span class="switch__option switch__option--right">Русский</span>
     </div>
   </div>
 </template>
@@ -27,35 +27,22 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  width: 50px;
-  height: 25px;
-  transform: translateY(50%)
+  display: flex;
+  align-items: center;
+}
+
+.switch__option--left {
+  margin-right: 10px;
 }
 
 .switch__toggle {
-  width: 100%;
-  height: 100%;
-}
+  width: 50px;
+  height: 25px;
 
-.switch__toggle:after, .switch__toggle:before {
-  display: block;
-  position: relative;
-  width: fit-content;
-  height: inherit;
-}
-
-.switch__toggle:before {
-  content: 'English';
-  bottom: 0;
-  left: -65px;
-  transform: translateY(20%);
-}
-
-.switch__toggle:after {
-  content: 'Русский';
-  bottom: 0;
-  right: -50px;
-  transform: translateY(-160%);
+  @include phones {
+    width: 40px;
+    height: 20px;
+  }
 }
 
 .switch__checkbox {
@@ -65,11 +52,19 @@ export default {
 .switch__slider {
   position: relative;
   display: block;
-  transform: translateY(-100%);
   width: 80%;
   height: 80%;
   background: var(--background-color);
   border-radius: 25px;
+  transition: background 0.8s;
+
+  @include phones {
+    border-radius: 20px;
+  }
+
+    &:hover {
+      background: var(--button-positive-color);
+    }
 }
 
 .switch__slider::before {
