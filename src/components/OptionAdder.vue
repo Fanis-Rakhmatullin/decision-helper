@@ -7,6 +7,7 @@
           <input
             v-model="option.name"
             class="option__name-input input--type--text"
+            :class="{error: validation.hasError('option.name')}"
             :placeholder="textContent.optionNamePlaceholder"
             type="text"
             ref="optionName"
@@ -17,6 +18,7 @@
             <input
               v-model="option.value"
               class="option__value-input input--type--text"
+              :class="{error: validation.hasError('option.value')}"
               placeholder="10"
               type="number"
               inputmode="numeric"
@@ -58,11 +60,19 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
 import ButtonComponent from './ButtonComponent.vue';
 
 let uniqueId = 0;
 
 export default {
+  mixins: [ValidatorMixin],
+  validators: {
+    'option.name': (value) => Validator.value(value)
+      .required(),
+    'option.value': (value) => Validator.value(value)
+      .required().greaterThan(0).maxLength(3),
+  },
   name: 'OptionAdder',
   components: {
     ButtonComponent,
@@ -85,16 +95,24 @@ export default {
   methods: {
     ...mapMutations(['ADD_PRO', 'ADD_CON']),
     addNewPro() {
-      this.generateNextId();
-      this.ADD_PRO({ ...this.option });
-      this.resetInput();
-      this.$refs.optionName.focus();
+      this.$validate()
+        .then((isValid) => {
+          if (!isValid) return;
+          this.generateNextId();
+          this.ADD_PRO({ ...this.option });
+          this.resetInput();
+          this.$refs.optionName.focus();
+        });
     },
     addNewCon() {
-      this.generateNextId();
-      this.ADD_CON({ ...this.option });
-      this.resetInput();
-      this.$refs.optionName.focus();
+      this.$validate()
+        .then((isValid) => {
+          if (!isValid) return;
+          this.generateNextId();
+          this.ADD_CON({ ...this.option });
+          this.resetInput();
+          this.$refs.optionName.focus();
+        });
     },
     generateNextId() {
       uniqueId += 1;

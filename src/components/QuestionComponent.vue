@@ -5,15 +5,16 @@
         <label class="question__prompt">{{ textContent.questionPrompt }}
           <input
             v-model="newQuestion"
+            :placeholder="textContent.questionPromptPlaceholder"
             autofocus
             class="question__input input--type--text"
-            :placeholder="textContent.questionPromptPlaceholder"
+            :class="{error: validation.hasError('newQuestion')}"
             type="text"
           >
         </label>
         <button-component
-          buttonColor="var(--button-main-color)"
           :buttonText="textContent.questionButtonNext"
+          buttonColor="var(--button-main-color)"
           class="question__button"
           @clickOnBtn="setNewQuestion"
         />
@@ -31,7 +32,8 @@ import ButtonComponent from './ButtonComponent.vue';
 export default {
   mixins: [ValidatorMixin],
   validators: {
-    newQuestion: (value) => Validator.value(value).required('lol'),
+    newQuestion: (value) => Validator.value(value)
+      .required(),
   },
   name: 'QuestionComponent',
   components: {
@@ -50,9 +52,12 @@ export default {
   methods: {
     ...mapMutations(['SET_QUESTION']),
     setNewQuestion() {
-      this.SET_QUESTION(this.newQuestion);
-
-      this.scrollTo(document.querySelector('.option-adder').offsetTop);
+      this.$validate()
+        .then((isValid) => {
+          if (!isValid) return;
+          this.SET_QUESTION(this.newQuestion);
+          this.scrollTo(document.querySelector('.option-adder').offsetTop);
+        });
     },
     scrollTo(offset) {
       const ADDITIONAL_OFFSET = 50;

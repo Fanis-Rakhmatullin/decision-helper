@@ -4,7 +4,7 @@
       <h2 class="title">{{ question }}</h2>
       <div class="spreadsheet">
         <div class="pros reasons">
-          <ul class="reasons__list">
+          <transition-group class="reasons__list" name="list" tag="ul">
             <li
               v-for="pro in pros"
               :key="pro.id"
@@ -15,10 +15,10 @@
                 :reason="pro"
               />
             </li>
-          </ul>
+          </transition-group>
         </div>
         <div class="cons reasons">
-          <ul class="reasons__list">
+          <transition-group class="reasons__list" name="list" tag="ul">
             <li
               v-for="con in cons"
               :key="con.id"
@@ -29,7 +29,7 @@
                 :reason="con"
               />
             </li>
-          </ul>
+          </transition-group>
         </div>
       </div>
       <div class="score">
@@ -54,30 +54,32 @@
         class="show-chart-btn"
         @clickOnBtn="showCharts"
       />
-      <ul
-        v-if="isChartsShown"
-        ref="charts"
-        class="charts"
-      >
-        <li class="charts__pros-cons">
-          <h2 class="charts__title">{{ this.textContent.chartName1 }}</h2>
-          <chart-component
-            :chartLabels="chartLabelsProsCons"
-            :chartTitle="question"
-            :chartValues="chartValuesProsCons"
-            :colorScheme="['#44bba4', '#ef5b5b']"
-          />
-        </li>
-        <li class="charts__reasons">
-          <h2 class="charts__title">{{ this.textContent.chartName2 }}</h2>
-          <chart-component
-            :chartLabels="chartLabelsAllReasons"
-            :chartTitle="question"
-            :chartValues="chartValuesAllReasons"
-            :colorScheme="shuffledDefaultColorScheme"
-          />
-        </li>
-      </ul>
+      <transition name="bounce">
+        <ul
+          v-if="isChartsShown"
+          ref="charts"
+          class="charts"
+        >
+          <li class="charts__pros-cons">
+            <h2 class="charts__title">{{ this.textContent.chartName1 }}</h2>
+            <chart-component
+              :chartLabels="chartLabelsProsCons"
+              :chartTitle="question"
+              :chartValues="chartValuesProsCons"
+              :colorScheme="['#44bba4', '#ef5b5b']"
+            />
+          </li>
+          <li class="charts__reasons">
+            <h2 class="charts__title">{{ this.textContent.chartName2 }}</h2>
+            <chart-component
+              :chartLabels="chartLabelsAllReasons"
+              :chartTitle="question"
+              :chartValues="chartValuesAllReasons"
+              :colorScheme="shuffledDefaultColorScheme"
+            />
+          </li>
+        </ul>
+      </transition>
     </div>
   </div>
 </template>
@@ -191,7 +193,8 @@ export default {
 }
 
 .reasons__item {
-  transition: background-color .8s;
+  transition: all 1s;
+  margin-right: 10px;
 
   &:hover {
     background-color: var(--background-color);
@@ -281,5 +284,43 @@ export default {
   @include phones {
     margin-bottom: 20px;
   }
+}
+
+// Animation:
+
+.bounce-enter-active {
+  animation: bounce-in 0.6s;
+}
+
+.bounce-leave-active {
+  animation: bounce-in 0.6s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.list-leave-active {
+  position: absolute;
+}
+
+.list-move {
+  transition: all 1s;
 }
 </style>

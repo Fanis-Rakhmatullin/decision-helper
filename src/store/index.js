@@ -6,30 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     question: '',
-    pros: [{
-      name: 'Dota 2 game',
-      value: 17,
-      probability: 100,
-      id: 1,
-    },
-    {
-      name: 'Hello',
-      value: 32,
-      probability: 80,
-      id: 3,
-    }],
-    cons: [{
-      name: 'Imprtant very',
-      value: 8,
-      probability: 100,
-      id: 1,
-    },
-    {
-      name: 'Strong kek',
-      value: 33,
-      probability: 55,
-      id: 3,
-    }],
+    pros: [],
+    cons: [],
     textContent: {},
   },
   mutations: {
