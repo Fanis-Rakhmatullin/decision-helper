@@ -36,7 +36,7 @@ export default {
   transition: box-shadow 0.8s;
 
   &:hover {
-    box-shadow: inset 0 0 0 20px var(--header-color);
+    box-shadow: inset 0 0 0 25px var(--header-color);
   }
 
   &:focus {

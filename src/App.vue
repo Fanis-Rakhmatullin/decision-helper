@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <header-component/>
-    <question-component/>
-    <option-adder/>
-    <spreadsheet-component/>
+    <div class="wrapper">
+      <header-component/>
+      <question-component/>
+      <option-adder/>
+      <spreadsheet-component/>
+    </div>
     <footer-component/>
   </div>
 </template>
